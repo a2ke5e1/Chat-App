@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Chat App</string>
+    <string name="email">Email</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="name">Name\n</string>
+    <string name="already_registered_login">Already Registered? Login</string>
+    <string name="submit">Submit</string>
+    <string name="sign_up_supporting_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="password_rules"><![CDATA[Password should\n1. At least contain one of these characters !, @,#, \\$, %, ^, &, *\n2. At least contain one Uppercase letter. \n3. At least contain one digit.\n4. At least contain one Lowercase letter. \n5. Minimum length is 8 characters.\n]]></string>
+    <string name="enter_password">Enter a password</string>
+    <string name="password_does_not_match">Password does not match</string>
+    <string name="enter_a_valid_email">Enter a valid email</string>
+    <string name="enter_email">Enter a email</string>
+    <string name="enter_a_name">Enter a name</string>
+    <string name="not_registered_register">Not Registered? Register</string>
+    <string name="login">Login</string>
+    <string name="password_length_rule">Password should be 8 characters long</string>
+    <string name="logout">Logout</string>
+</resources>
