@@ -40,20 +40,24 @@ class MainActivity : AppCompatActivity() {
         binding.messagesRecyclerView.adapter = adapter
         messageViewModel.messages.observe(this) {
             adapter.setMessages(it)
-            manager.smoothScrollToPosition(binding.messagesRecyclerView, null, it.size - 1)
+            if (it.isNotEmpty()) {
+                manager.smoothScrollToPosition(binding.messagesRecyclerView, null, it.size - 1)
+            }
         }
         messageViewModel.getMessages()
 
-        var i = 10
         binding.sendButton.setOnClickListener {
 
-            messageViewModel.sendMessage(
-                Message(
-                    i.toString(),
-                    auth.uid
+           val messageBody = binding.messageBox.text
+            if (!messageBody.isNullOrBlank()) {
+                messageViewModel.sendMessage(
+                    Message(
+                        messageBody.toString(),
+                        auth.currentUser?.uid
+                    )
                 )
-            )
-            i++
+                binding.messageBox.setText("")
+            }
         }
         binding.logoutButton.setOnClickListener {
             logout()

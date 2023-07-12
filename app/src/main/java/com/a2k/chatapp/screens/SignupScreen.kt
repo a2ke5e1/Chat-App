@@ -1,5 +1,6 @@
 package com.a2k.chatapp.screens
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
@@ -61,7 +62,13 @@ class SignupScreen : AppCompatActivity() {
                         if (task.isSuccessful) {
                             val user = auth.currentUser
                             user?.updateProfile(profileDetails)
-                            Toast.makeText(baseContext, user?.uid, Toast.LENGTH_SHORT).show()
+
+                            if (user != null) {
+                                Toast.makeText(baseContext, user?.uid, Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, MainActivity::class.java))
+                                finish()
+                            }
+
                         } else {
 
 

@@ -1,7 +1,10 @@
 package com.a2k.chatapp.adapters
 
+import android.icu.text.SimpleDateFormat
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.a2k.chatapp.databinding.MessageViewBinding
 import com.a2k.chatapp.models.Message
@@ -28,10 +31,23 @@ class MessageAdapter: RecyclerView.Adapter<MessageViewHolder>() {
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val message = messages[position]
 
-        holder.binding.messageSender.text = if (message.senderId.equals(_uid.toString()) ) { "Me"} else {"Other"}
+        holder.binding.messageSender.text = _uid
 
         holder.binding.messageBody.text = message.messageBody
-        holder.binding.messageTimestamp.text = message.sentDate.toString()
+
+        val dateFormatter = SimpleDateFormat("LLL d, Y H:m")
+
+        if (message.sentDate != null) {
+            holder.binding.messageTimestamp.text = dateFormatter.format(message.sentDate)
+        }
+
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            gravity = if (message.senderId.equals(_uid.toString()) ) { Gravity.END} else {Gravity.START}
+        }
+        holder.binding.messageCard.layoutParams = params
     }
 
 }
