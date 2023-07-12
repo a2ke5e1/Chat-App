@@ -1,10 +1,12 @@
-package com.a2k.chatapp
+package com.a2k.chatapp.screens
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import com.a2k.chatapp.R
 import com.a2k.chatapp.databinding.ActivitySignupScreenBinding
+import com.a2k.chatapp.setupUIWithNavigationListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
