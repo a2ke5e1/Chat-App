@@ -8,13 +8,13 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class MessageRepo {
+class MessageRepo(private val chatId: String) {
     private val _chatRef = Firebase.firestore.collection("tests")
-    fun getMessages(chatId: String): Query {
+    fun getMessages(): Query {
         return _chatRef.document(chatId).collection("messages").orderBy("sentDate")
     }
 
-    fun sendMessage(message: Message,chatId: String): Task<DocumentReference> {
+    fun sendMessage(message: Message): Task<DocumentReference> {
         return _chatRef.document(chatId).collection("messages").add(message)
     }
 

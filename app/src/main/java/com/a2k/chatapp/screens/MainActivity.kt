@@ -1,20 +1,16 @@
 package com.a2k.chatapp.screens
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.a2k.chatapp.R
 import com.a2k.chatapp.adapters.MessageAdapter
 import com.a2k.chatapp.databinding.ActivityMainBinding
 import com.a2k.chatapp.models.Message
 import com.a2k.chatapp.repository.MessageRepo
 import com.a2k.chatapp.viewmodel.MessageViewModel
 import com.a2k.chatapp.viewmodel.MessageViewModelFactory
-import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -31,9 +27,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val messageRepo = MessageRepo()
+        val messageRepo = MessageRepo("3d0452179cd0c3cdb4814b9c96b6b9a459c655df557a38d34bf98988688c050a")
         val messageViewModel =
-            ViewModelProvider(this, MessageViewModelFactory(messageRepo, "3d0452179cd0c3cdb4814b9c96b6b9a459c655df557a38d34bf98988688c050a" ))[MessageViewModel::class.java]
+            ViewModelProvider(
+                this,
+                MessageViewModelFactory(
+                    messageRepo
+                )
+            )[MessageViewModel::class.java]
         val manager = LinearLayoutManager(this)
         manager.stackFromEnd = true
 
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.sendButton.setOnClickListener {
 
-           val messageBody = binding.messageBox.text
+            val messageBody = binding.messageBox.text
             if (!messageBody.isNullOrBlank()) {
                 messageViewModel.sendMessage(
                     Message(
