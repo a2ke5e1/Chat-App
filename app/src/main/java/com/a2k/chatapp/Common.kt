@@ -8,6 +8,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.google.android.material.appbar.MaterialToolbar
+import java.security.MessageDigest
 
 
 /**
@@ -53,4 +54,23 @@ fun setupUIWithNavigationListener(context: Context, window: Window, toolbar: Mat
     toolbar.setNavigationOnClickListener {
         listener()
     }
+}
+
+/** It is used to generate a same unique chat id, even when two uids are interchanged when
+ *  two functions are called.
+ *
+ *  @param senderUid Sender's uid
+ *  @param receiverUid Receiver's uid
+ */
+fun generateChatId(senderUid: String, receiverUid: String): String {
+    // uniqueString joins senderUid and receiverUid such that
+    // generated string is same even both are interchanged.
+    val uniqueString = listOf(senderUid, receiverUid).sorted().joinToString("")
+
+    // We are running a SHA-256 hash algorithm on uniqueString
+    // to ensure that no one can regenerate user's uid from
+    // the uniqueString.
+    val md = MessageDigest.getInstance("SHA-256")
+    val digest = md.digest(uniqueString.toByteArray())
+    return digest.fold("") { str, it -> str + "%02x".format(it) }
 }

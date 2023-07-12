@@ -11,6 +11,7 @@ import com.a2k.chatapp.R
 import com.a2k.chatapp.adapters.MessageAdapter
 import com.a2k.chatapp.databinding.ActivityMainBinding
 import com.a2k.chatapp.models.Message
+import com.a2k.chatapp.repository.MessageRepo
 import com.a2k.chatapp.viewmodel.MessageViewModel
 import com.a2k.chatapp.viewmodel.MessageViewModelFactory
 import com.google.android.material.button.MaterialButton
@@ -30,9 +31,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        val messageRepo = MessageRepo()
         val messageViewModel =
-            ViewModelProvider(this, MessageViewModelFactory())[MessageViewModel::class.java]
+            ViewModelProvider(this, MessageViewModelFactory(messageRepo, "3d0452179cd0c3cdb4814b9c96b6b9a459c655df557a38d34bf98988688c050a" ))[MessageViewModel::class.java]
         val manager = LinearLayoutManager(this)
         manager.stackFromEnd = true
 

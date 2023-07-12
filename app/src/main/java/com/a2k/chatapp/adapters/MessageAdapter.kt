@@ -10,6 +10,7 @@ import com.a2k.chatapp.databinding.MessageViewBinding
 import com.a2k.chatapp.models.Message
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.util.Locale
 
 class MessageAdapter: RecyclerView.Adapter<MessageViewHolder>() {
 
@@ -31,12 +32,10 @@ class MessageAdapter: RecyclerView.Adapter<MessageViewHolder>() {
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val message = messages[position]
 
-        holder.binding.messageSender.text = _uid
-
+        holder.binding.messageSender.text = message.senderId
         holder.binding.messageBody.text = message.messageBody
 
-        val dateFormatter = SimpleDateFormat("LLL d, Y H:m")
-
+        val dateFormatter = SimpleDateFormat("LLL d, y H:mm", Locale.getDefault()) //  Jul 12, 2023 15:49
         if (message.sentDate != null) {
             holder.binding.messageTimestamp.text = dateFormatter.format(message.sentDate)
         }

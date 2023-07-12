@@ -11,7 +11,9 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun sameGeneratedString() {
+        val r1 = generateChatId("test1", "test2")
+        val r2 = generateChatId("test2", "test1")
+        assertEquals(r1, r2)
     }
 }
