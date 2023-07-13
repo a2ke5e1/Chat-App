@@ -19,7 +19,7 @@ class MessageViewModel(private val repository: MessageRepo): ViewModel() {
     fun getMessages(): LiveData<List<Message>> {
         repository.getMessages().addSnapshotListener { value, error ->
             if (error != null) {
-
+                Log.w("MESSAGE_VIEW", "Error loading messages")
             }
             messages.postValue(value!!.toObjects(Message::class.java))
         }

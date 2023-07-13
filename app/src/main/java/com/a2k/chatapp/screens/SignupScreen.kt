@@ -7,6 +7,8 @@ import android.util.Patterns
 import android.widget.Toast
 import com.a2k.chatapp.R
 import com.a2k.chatapp.databinding.ActivitySignupScreenBinding
+import com.a2k.chatapp.models.Profile
+import com.a2k.chatapp.repository.ProfileRepo
 import com.a2k.chatapp.setupUIWithNavigationListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -62,6 +64,15 @@ class SignupScreen : AppCompatActivity() {
                         if (task.isSuccessful) {
                             val user = auth.currentUser
                             user?.updateProfile(profileDetails)
+                            ProfileRepo().updateProfile(
+                                Profile(
+                                    name,
+                                    email,
+                                    null,
+                                    user?.uid
+                                ),
+                                user!!.uid
+                            )
 
                             if (user != null) {
                                 Toast.makeText(baseContext, user?.uid, Toast.LENGTH_SHORT).show()

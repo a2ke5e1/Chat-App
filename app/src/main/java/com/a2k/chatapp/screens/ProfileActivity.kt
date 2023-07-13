@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.a2k.chatapp.adapters.MessageAdapter
 import com.a2k.chatapp.adapters.ProfileAdapter
 import com.a2k.chatapp.databinding.ActivityMainBinding
+import com.a2k.chatapp.databinding.ActivityProfileBinding
 import com.a2k.chatapp.models.Message
 import com.a2k.chatapp.repository.MessageRepo
 import com.a2k.chatapp.repository.ProfileRepo
@@ -19,9 +20,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class MainActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityProfileBinding
     private lateinit var auth: FirebaseAuth
     // val adapter = MessageAdapter()
     val adapter = ProfileAdapter()
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 

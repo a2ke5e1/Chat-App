@@ -21,6 +21,9 @@
             android:exported="false" />
         <activity
             android:name=".screens.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.ProfileActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
