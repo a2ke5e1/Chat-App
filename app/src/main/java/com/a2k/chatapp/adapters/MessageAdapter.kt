@@ -1,19 +1,24 @@
 package com.a2k.chatapp.adapters
 
+import android.content.Context
+import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.a2k.chatapp.R
 import com.a2k.chatapp.databinding.MessageViewBinding
 import com.a2k.chatapp.models.Message
 import com.a2k.chatapp.models.Profile
+import com.google.android.material.color.MaterialColors
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.Locale
 
-class MessageAdapter: RecyclerView.Adapter<MessageViewHolder>() {
+class MessageAdapter(private val context: Context): RecyclerView.Adapter<MessageViewHolder>() {
 
     private var messages = mutableListOf<Message>()
     private val _uid = Firebase.auth.currentUser?.uid
@@ -41,14 +46,20 @@ class MessageAdapter: RecyclerView.Adapter<MessageViewHolder>() {
         holder.binding.messageSender.text = message.senderId
         if (receiverProfile != null && receiverProfile?.uid.equals(message.senderId)) {
             holder.binding.messageSender.text = receiverProfile?.name
+            holder.binding.messageCard.setCardBackgroundColor(
+                MaterialColors.getColor(context, com.google.android.material.R.attr.colorSecondaryContainer, Color.TRANSPARENT )
+            )
         } else if (_uid != null && _uid == message.senderId) {
             holder.binding.messageSender.text = "Me"
+            holder.binding.messageCard.setCardBackgroundColor(
+                MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurfaceContainer, Color.TRANSPARENT )
+            )
         }
 
 
         holder.binding.messageBody.text = message.messageBody
 
-        val dateFormatter = SimpleDateFormat("LLL d, y H:mm", Locale.getDefault()) //  Jul 12, 2023 15:49
+        val dateFormatter = SimpleDateFormat("HH:mm · dd/MM/yy", Locale.getDefault()) //  Jul 12, 2023 15:49
         if (message.sentDate != null) {
             holder.binding.messageTimestamp.text = dateFormatter.format(message.sentDate)
         }

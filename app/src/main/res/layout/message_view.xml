@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_gravity="start"
         android:id="@+id/message_card"
+        android:minWidth="120dp"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -23,13 +24,13 @@
                 android:id="@+id/message_sender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
                 tools:text="Me" />
 
 
             <TextView
                 android:id="@+id/message_body"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Hello!" />
@@ -39,6 +40,7 @@
                 android:id="@+id/message_timestamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="8sp"
                 tools:text="Jul 12, 2023 2:20" />
 
         </LinearLayout>
