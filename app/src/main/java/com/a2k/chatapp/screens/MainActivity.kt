@@ -1,6 +1,7 @@
 package com.a2k.chatapp.screens
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -9,6 +10,7 @@ import com.a2k.chatapp.adapters.MessageAdapter
 import com.a2k.chatapp.adapters.ProfileAdapter
 import com.a2k.chatapp.databinding.ActivityMainBinding
 import com.a2k.chatapp.models.Message
+import com.a2k.chatapp.models.Profile
 import com.a2k.chatapp.repository.MessageRepo
 import com.a2k.chatapp.repository.ProfileRepo
 import com.a2k.chatapp.viewmodel.MessageViewModel
@@ -32,10 +34,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val chatId = intent.getStringExtra("chatId")
-        val receiverName = intent.getStringExtra("receiverName")
-        val receiverUid = intent.getStringExtra("receiverUid")
+        val receiverProfile: Profile? =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra("receiverProfile", Profile::class.java)
+            } else {
+                intent.getParcelableExtra("receiverProfile")
+            }
 
-        adapter.setReceiverInfo(receiverName, receiverUid)
+        adapter.setReceiverInfo(receiverProfile)
 
         val messageRepo = MessageRepo(chatId!!)
         val messageViewModel =

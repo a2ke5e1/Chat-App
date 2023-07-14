@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.a2k.chatapp.databinding.MessageViewBinding
 import com.a2k.chatapp.models.Message
+import com.a2k.chatapp.models.Profile
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.Locale
@@ -16,12 +17,10 @@ class MessageAdapter: RecyclerView.Adapter<MessageViewHolder>() {
 
     private var messages = mutableListOf<Message>()
     private val _uid = Firebase.auth.currentUser?.uid
-    private var receiverUid: String? = null
-    private var receiverName: String? = null
+    private var receiverProfile: Profile? = null
 
-    fun setReceiverInfo(name: String?, uid: String?) {
-        receiverUid = uid
-        receiverName = name
+    fun setReceiverInfo(profile: Profile?) {
+        receiverProfile = profile
     }
 
     fun setMessages(movies: List<Message>) {
@@ -40,9 +39,9 @@ class MessageAdapter: RecyclerView.Adapter<MessageViewHolder>() {
         val message = messages[position]
 
         holder.binding.messageSender.text = message.senderId
-        if (receiverUid != null && receiverUid.equals(message.senderId)) {
-            holder.binding.messageSender.text = receiverName
-        } else if (_uid != null && _uid.equals(message.senderId)) {
+        if (receiverProfile != null && receiverProfile?.uid.equals(message.senderId)) {
+            holder.binding.messageSender.text = receiverProfile?.name
+        } else if (_uid != null && _uid == message.senderId) {
             holder.binding.messageSender.text = "Me"
         }
 

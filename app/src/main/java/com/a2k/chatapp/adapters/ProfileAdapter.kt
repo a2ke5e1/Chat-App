@@ -37,8 +37,7 @@ class ProfileAdapter : RecyclerView.Adapter<ProfileViewHolder>() {
             holder.binding.profileCard.setOnClickListener { v ->
                 val i = Intent(v.context, MainActivity::class.java)
                 i.putExtra("chatId", chatId)
-                i.putExtra("receiverUid", profile.uid)
-                i.putExtra("receiverName", profile.name)
+                i.putExtra("receiverProfile", profile)
                 v.context.startActivity(i)
             }
         }
