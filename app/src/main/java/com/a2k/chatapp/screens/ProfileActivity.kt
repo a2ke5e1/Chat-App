@@ -34,6 +34,7 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupUI(this, window, binding.toolbar)
+        setSupportActionBar(binding.toolbar)
 
 
         val profileRepo = ProfileRepo()

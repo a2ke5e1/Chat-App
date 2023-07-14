@@ -31,7 +31,7 @@ fun setupUI(context: Context, window: Window, toolbar: MaterialToolbar) {
 
     ViewCompat.setOnApplyWindowInsetsListener(toolbar) { view, windowInsets ->
         val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-        view.updatePadding(top = insets.top, bottom = insets.bottom, left = insets.left, right = insets.right)
+        view.updatePadding(top = insets.top, left = insets.left, right = insets.right)
         WindowInsetsCompat.CONSUMED
     }
 }

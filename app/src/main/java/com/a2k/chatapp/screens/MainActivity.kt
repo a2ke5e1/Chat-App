@@ -4,6 +4,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.a2k.chatapp.adapters.MessageAdapter
@@ -13,6 +18,7 @@ import com.a2k.chatapp.models.Message
 import com.a2k.chatapp.models.Profile
 import com.a2k.chatapp.repository.MessageRepo
 import com.a2k.chatapp.repository.ProfileRepo
+import com.a2k.chatapp.setupUIWithNavigationListener
 import com.a2k.chatapp.viewmodel.MessageViewModel
 import com.a2k.chatapp.viewmodel.MessageViewModelFactory
 import com.a2k.chatapp.viewmodel.ProfilesViewModel
@@ -32,6 +38,11 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupUIWithNavigationListener(this, window, binding.toolbar) {
+            finish()
+        }
+        WindowCompat.setDecorFitsSystemWindows(window, true)
+
 
         val chatId = intent.getStringExtra("chatId")
         val receiverProfile: Profile? =
@@ -41,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 intent.getParcelableExtra("receiverProfile")
             }
 
+        binding.toolbar.setTitle(receiverProfile?.name)
         adapter.setReceiverInfo(receiverProfile)
 
         val messageRepo = MessageRepo(chatId!!)
@@ -77,9 +89,7 @@ class MainActivity : AppCompatActivity() {
                 binding.messageBox.setText("")
             }
         }
-        binding.logoutButton.setOnClickListener {
-            logout()
-        }
+
 
     }
 
