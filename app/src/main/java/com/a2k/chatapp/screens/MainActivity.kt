@@ -87,8 +87,8 @@ class MainActivity : AppCompatActivity() {
             if (!messageBody.isNullOrBlank()) {
                 messageViewModel.sendMessage(
                     Message(
-                        messageBody.toString(),
-                        auth.currentUser?.uid
+                        messageBody =  messageBody.toString(),
+                        senderId = auth.currentUser?.uid
                     )
                 )
                 binding.messageBox.setText("")

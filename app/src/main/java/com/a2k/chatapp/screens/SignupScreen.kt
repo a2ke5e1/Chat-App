@@ -66,10 +66,10 @@ class SignupScreen : AppCompatActivity() {
                             user?.updateProfile(profileDetails)
                             ProfileRepo().updateProfile(
                                 Profile(
-                                    name,
-                                    email,
-                                    null,
-                                    user?.uid
+                                    name = name,
+                                    email = email,
+                                    photoUrl = null,
+                                    uid = user?.uid
                                 ),
                                 user!!.uid
                             )
