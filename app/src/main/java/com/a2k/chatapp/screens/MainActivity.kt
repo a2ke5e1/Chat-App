@@ -3,6 +3,9 @@ package com.a2k.chatapp.screens
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -11,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.a2k.chatapp.R
 import com.a2k.chatapp.adapters.MessageAdapter
 import com.a2k.chatapp.adapters.ProfileAdapter
 import com.a2k.chatapp.databinding.ActivityMainBinding
@@ -42,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         WindowCompat.setDecorFitsSystemWindows(window, true)
+        setSupportActionBar(binding.toolbar)
 
 
         val chatId = intent.getStringExtra("chatId")
@@ -52,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 intent.getParcelableExtra("receiverProfile")
             }
 
-        binding.toolbar.setTitle(receiverProfile?.name)
+        title = (receiverProfile?.name)
         adapter.setReceiverInfo(receiverProfile)
 
         val messageRepo = MessageRepo(chatId!!)
@@ -91,6 +96,23 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.appbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.logout -> {
+                logout()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onStart() {

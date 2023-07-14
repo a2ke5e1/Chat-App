@@ -2,10 +2,14 @@ package com.a2k.chatapp.screens
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.a2k.chatapp.R
 import com.a2k.chatapp.adapters.MessageAdapter
 import com.a2k.chatapp.adapters.ProfileAdapter
 import com.a2k.chatapp.databinding.ActivityMainBinding
@@ -61,6 +65,23 @@ class ProfileActivity : AppCompatActivity() {
             logout()
         }*/
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.appbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.logout -> {
+                logout()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onStart() {
