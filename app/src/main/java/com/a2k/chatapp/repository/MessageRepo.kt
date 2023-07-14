@@ -18,4 +18,14 @@ class MessageRepo(private val chatId: String) {
         return _chatRef.document(chatId).collection("messages").add(message)
     }
 
+    fun deleteMessage(messageId: String): Task<Void> {
+        return _chatRef.document(chatId).collection("messages").document(messageId).delete()
+    }
+
+    fun updateMessage(messageBody: String, messageId: String): Task<Void> {
+        return _chatRef.document(chatId).collection("messages").document(messageId).update(
+            "messageBody", messageBody
+        )
+    }
+
 }

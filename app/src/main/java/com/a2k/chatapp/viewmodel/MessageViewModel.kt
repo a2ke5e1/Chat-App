@@ -30,4 +30,12 @@ class MessageViewModel(private val repository: MessageRepo): ViewModel() {
         repository.sendMessage(message)
     }
 
+    fun deleteMessage(messageId: String) {
+        repository.deleteMessage(messageId)
+    }
+
+    fun updateMessage(messageBody: String, editingMessageId: String) {
+        repository.updateMessage(messageBody, editingMessageId)
+    }
+
 }

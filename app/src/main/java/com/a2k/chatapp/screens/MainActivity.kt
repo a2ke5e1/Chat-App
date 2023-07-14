@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -35,7 +36,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
-    val adapter = MessageAdapter(this)
+    var editingMode = false
+    var editingMessageId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +60,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         title = (receiverProfile?.name)
-        adapter.setReceiverInfo(receiverProfile)
 
         val messageRepo = MessageRepo(chatId!!)
         val messageViewModel =
@@ -70,6 +71,17 @@ class MainActivity : AppCompatActivity() {
             )[MessageViewModel::class.java]
         val manager = LinearLayoutManager(this)
         manager.stackFromEnd = true
+
+
+        val adapter = MessageAdapter(this, { documentId ->
+            messageViewModel.deleteMessage(documentId)
+        }, { documentId , messageBody ->
+            editingMode = true
+            editingMessageId = documentId
+            binding.messageBox.setText(messageBody)
+        })
+        adapter.setReceiverInfo(receiverProfile)
+
 
         binding.messagesRecyclerView.layoutManager = manager
         binding.messagesRecyclerView.adapter = adapter
@@ -84,14 +96,24 @@ class MainActivity : AppCompatActivity() {
         binding.sendButton.setOnClickListener {
 
             val messageBody = binding.messageBox.text
-            if (!messageBody.isNullOrBlank()) {
-                messageViewModel.sendMessage(
-                    Message(
-                        messageBody =  messageBody.toString(),
-                        senderId = auth.currentUser?.uid
+            if ( editingMode) {
+                if (!messageBody.isNullOrBlank()) {
+                    messageViewModel.updateMessage(
+                        messageBody.toString(), editingMessageId!!
                     )
-                )
-                binding.messageBox.setText("")
+                    binding.messageBox.setText("")
+                    editingMode = false
+                }
+            } else {
+                if (!messageBody.isNullOrBlank()) {
+                    messageViewModel.sendMessage(
+                        Message(
+                            messageBody = messageBody.toString(),
+                            senderId = auth.currentUser?.uid
+                        )
+                    )
+                    binding.messageBox.setText("")
+                }
             }
         }
 
@@ -111,6 +133,7 @@ class MainActivity : AppCompatActivity() {
                 logout()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

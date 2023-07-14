@@ -24,4 +24,6 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="send">Send</string>
     <string name="message">Message</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

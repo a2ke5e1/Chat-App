@@ -3,11 +3,14 @@ package com.a2k.chatapp.adapters
 import android.content.Context
 import android.graphics.Color
 import android.icu.text.SimpleDateFormat
+import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MenuInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.a2k.chatapp.R
 import com.a2k.chatapp.databinding.MessageViewBinding
@@ -18,7 +21,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.Locale
 
-class MessageAdapter(private val context: Context): RecyclerView.Adapter<MessageViewHolder>() {
+
+class MessageAdapter(private val context: Context, private val onMessageDelete: (messageId: String) -> Unit,
+                     private val enableMessageEdit: (messageId: String, messageBody: String) -> Unit): RecyclerView.Adapter<MessageViewHolder>() {
 
     private var messages = mutableListOf<Message>()
     private val _uid = Firebase.auth.currentUser?.uid
@@ -53,12 +58,17 @@ class MessageAdapter(private val context: Context): RecyclerView.Adapter<Message
                 MaterialColors.getColor(context, com.google.android.material.R.attr.colorSecondaryContainer, Color.TRANSPARENT )
             )
             params.gravity = Gravity.START
-        } else if (_uid != null && _uid == message.senderId) {
+        }
+        else if (_uid != null && _uid == message.senderId) {
             holder.binding.messageSender.text = "Me"
             holder.binding.messageCard.setCardBackgroundColor(
                 MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurfaceContainer, Color.TRANSPARENT )
             )
             params.gravity = Gravity.END
+            holder.binding.messageCard.setOnLongClickListener { v->
+                showPopup(v, message)
+                return@setOnLongClickListener false
+            }
         }
         holder.binding.messageBody.text = message.messageBody
 
@@ -67,6 +77,28 @@ class MessageAdapter(private val context: Context): RecyclerView.Adapter<Message
             holder.binding.messageTimestamp.text = dateFormatter.format(message.sentDate)
         }
         holder.binding.messageCard.layoutParams = params
+    }
+
+    private fun showPopup(v: View, message: Message) {
+        val popup = PopupMenu(context, v)
+        popup.gravity = Gravity.CENTER
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.chat_actions_menu, popup.menu)
+        popup.setForceShowIcon(true)
+        popup.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.edit -> {
+                    enableMessageEdit(message.messageId!!, message.messageBody!!)
+                    true
+                }
+                R.id.delete -> {
+                    onMessageDelete(message.messageId!!)
+                    true
+                }
+                else -> false
+            }
+        }
+        popup.show()
     }
 
 }
