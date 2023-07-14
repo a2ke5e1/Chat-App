@@ -43,32 +43,29 @@ class MessageAdapter(private val context: Context): RecyclerView.Adapter<Message
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val message = messages[position]
 
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
         holder.binding.messageSender.text = message.senderId
         if (receiverProfile != null && receiverProfile?.uid.equals(message.senderId)) {
             holder.binding.messageSender.text = receiverProfile?.name
             holder.binding.messageCard.setCardBackgroundColor(
                 MaterialColors.getColor(context, com.google.android.material.R.attr.colorSecondaryContainer, Color.TRANSPARENT )
             )
+            params.gravity = Gravity.START
         } else if (_uid != null && _uid == message.senderId) {
             holder.binding.messageSender.text = "Me"
             holder.binding.messageCard.setCardBackgroundColor(
                 MaterialColors.getColor(context, com.google.android.material.R.attr.colorSurfaceContainer, Color.TRANSPARENT )
             )
+            params.gravity = Gravity.END
         }
-
-
         holder.binding.messageBody.text = message.messageBody
 
         val dateFormatter = SimpleDateFormat("HH:mm · dd/MM/yy", Locale.getDefault()) //  Jul 12, 2023 15:49
         if (message.sentDate != null) {
             holder.binding.messageTimestamp.text = dateFormatter.format(message.sentDate)
-        }
-
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply {
-            gravity = if (message.senderId.equals(_uid.toString()) ) { Gravity.END} else {Gravity.START}
         }
         holder.binding.messageCard.layoutParams = params
     }
