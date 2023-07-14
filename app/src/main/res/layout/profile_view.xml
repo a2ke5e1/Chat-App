@@ -4,14 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="match_parent"
         android:layout_gravity="start"
         android:id="@+id/profile_card"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+        app:strokeWidth="0dp"
+        app:cardCornerRadius="8dp"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -30,13 +36,13 @@
 
             <TextView
                 android:id="@+id/profile_name"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="match_parent"
                 android:layout_gravity="center_vertical"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:layout_height="wrap_content"
-                tools:text="Hello!" />
+                tools:text="Lorem Ipsum" />
 
 
 

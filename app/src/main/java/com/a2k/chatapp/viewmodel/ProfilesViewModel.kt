@@ -20,11 +20,13 @@ class ProfilesViewModel(private val repository: ProfileRepo): ViewModel() {
     var profiles: MutableLiveData<List<Profile>> = MutableLiveData()
     private var _uid = Firebase.auth.currentUser?.uid
     fun getProfiles(): LiveData<List<Profile>> {
-        repository.getProfiles(_uid!!).addSnapshotListener { value, error ->
-            if (error != null) {
-                Log.w("PROFILE_VIEW", "Error loading profiles")
+        _uid?.let {
+            repository.getProfiles(it).addSnapshotListener { value, error ->
+                if (error != null) {
+                    Log.w("PROFILE_VIEW", "Error loading profiles")
+                }
+                profiles.postValue(value!!.toObjects(Profile::class.java))
             }
-            profiles.postValue(value!!.toObjects(Profile::class.java))
         }
         return profiles
     }

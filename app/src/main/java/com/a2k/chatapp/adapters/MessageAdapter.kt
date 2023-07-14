@@ -16,6 +16,13 @@ class MessageAdapter: RecyclerView.Adapter<MessageViewHolder>() {
 
     private var messages = mutableListOf<Message>()
     private val _uid = Firebase.auth.currentUser?.uid
+    private var receiverUid: String? = null
+    private var receiverName: String? = null
+
+    fun setReceiverInfo(name: String?, uid: String?) {
+        receiverUid = uid
+        receiverName = name
+    }
 
     fun setMessages(movies: List<Message>) {
         this.messages = movies.toMutableList()
@@ -33,6 +40,13 @@ class MessageAdapter: RecyclerView.Adapter<MessageViewHolder>() {
         val message = messages[position]
 
         holder.binding.messageSender.text = message.senderId
+        if (receiverUid != null && receiverUid.equals(message.senderId)) {
+            holder.binding.messageSender.text = receiverName
+        } else if (_uid != null && _uid.equals(message.senderId)) {
+            holder.binding.messageSender.text = "Me"
+        }
+
+
         holder.binding.messageBody.text = message.messageBody
 
         val dateFormatter = SimpleDateFormat("LLL d, y H:mm", Locale.getDefault()) //  Jul 12, 2023 15:49

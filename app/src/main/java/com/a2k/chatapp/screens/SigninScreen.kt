@@ -59,7 +59,7 @@ class SigninScreen : AppCompatActivity() {
                             if (user != null) {
                                 // Move back to home screen
 
-                                val i = Intent(this, MainActivity::class.java)
+                                val i = Intent(this, ProfileActivity::class.java)
                                 startActivity(i)
                                 finish()
 

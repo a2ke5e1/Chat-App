@@ -2,6 +2,7 @@ package com.a2k.chatapp.screens
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.a2k.chatapp.databinding.ActivityProfileBinding
 import com.a2k.chatapp.models.Message
 import com.a2k.chatapp.repository.MessageRepo
 import com.a2k.chatapp.repository.ProfileRepo
+import com.a2k.chatapp.setupUI
 import com.a2k.chatapp.viewmodel.MessageViewModel
 import com.a2k.chatapp.viewmodel.MessageViewModelFactory
 import com.a2k.chatapp.viewmodel.ProfilesViewModel
@@ -24,7 +26,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     private lateinit var auth: FirebaseAuth
-    // val adapter = MessageAdapter()
     val adapter = ProfileAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,7 @@ class ProfileActivity : AppCompatActivity() {
         auth = Firebase.auth
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupUI(this, window, binding.toolbar)
 
 
         val profileRepo = ProfileRepo()
@@ -47,46 +49,16 @@ class ProfileActivity : AppCompatActivity() {
         binding.messagesRecyclerView.adapter = adapter
         profilesViewModel.profiles.observe(this) {
             adapter.setProfiles(it)
+            if (it.isNotEmpty()) {
+                binding.noMessageIndicator.visibility = View.GONE
+            } else {
+                binding.noMessageIndicator.visibility = View.VISIBLE
+            }
         }
         profilesViewModel.getProfiles()
-
-        /*val messageRepo = MessageRepo("3d0452179cd0c3cdb4814b9c96b6b9a459c655df557a38d34bf98988688c050a")
-        val messageViewModel =
-            ViewModelProvider(
-                this,
-                MessageViewModelFactory(
-                    messageRepo
-                )
-            )[MessageViewModel::class.java]
-        val manager = LinearLayoutManager(this)
-        manager.stackFromEnd = true
-
-        binding.messagesRecyclerView.layoutManager = manager
-        binding.messagesRecyclerView.adapter = adapter
-        messageViewModel.messages.observe(this) {
-            adapter.setMessages(it)
-            if (it.isNotEmpty()) {
-                manager.smoothScrollToPosition(binding.messagesRecyclerView, null, it.size - 1)
-            }
-        }
-        messageViewModel.getMessages()
-
-        binding.sendButton.setOnClickListener {
-
-            val messageBody = binding.messageBox.text
-            if (!messageBody.isNullOrBlank()) {
-                messageViewModel.sendMessage(
-                    Message(
-                        messageBody.toString(),
-                        auth.currentUser?.uid
-                    )
-                )
-                binding.messageBox.setText("")
-            }
-        }*/
-        binding.logoutButton.setOnClickListener {
+        /*binding.logoutButton.setOnClickListener {
             logout()
-        }
+        }*/
 
     }
 

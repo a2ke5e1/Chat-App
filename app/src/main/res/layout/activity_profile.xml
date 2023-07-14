@@ -1,50 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".screens.MainActivity">
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/messages_recycler_view"
-       android:layout_width="0dp"
-       android:layout_height="0dp"
-       android:layout_margin="8dp"
-       android:layout_marginStart="8dp"
-       android:layout_marginTop="484dp"
-       android:layout_marginEnd="8dp"
-       app:layout_constraintBottom_toTopOf="@id/message_box"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
-   <com.google.android.material.textfield.TextInputEditText
-       android:id="@+id/message_box"
-       android:layout_width="0dp"
-       android:layout_marginStart="8dp"
-       android:layout_marginEnd="8dp"
-       android:layout_height="wrap_content"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toStartOf="@id/send_button"
-       app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            style="?attr/collapsingToolbarLayoutLargeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            app:expandedTitleTextAppearance="@style/TextAppearance.Material3.DisplayMedium"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="@string/app_name">
 
-   <com.google.android.material.button.MaterialButton
-       app:layout_constraintEnd_toEndOf="parent"
-       android:layout_margin="8dp"
-       app:layout_constraintBottom_toBottomOf="parent"
-       android:id="@+id/logout_button"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-      android:text="@string/logout" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="0dp"
+                app:titleCentered="true" />
 
-   <com.google.android.material.button.MaterialButton
-       app:layout_constraintEnd_toStartOf="@id/logout_button"
-       android:layout_margin="8dp"
-       app:layout_constraintBottom_toBottomOf="parent"
-       android:id="@+id/send_button"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="send" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/no_message_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="center_vertical"
+        android:visibility="visible"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/no_message" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messages_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="484dp"
+        android:layout_marginEnd="8dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="10"
+        tools:listitem="@layout/profile_view" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

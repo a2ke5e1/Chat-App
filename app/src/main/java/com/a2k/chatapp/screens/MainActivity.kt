@@ -23,8 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
-    // val adapter = MessageAdapter()
-    val adapter = ProfileAdapter()
+    val adapter = MessageAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,24 +31,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val chatId = intent.getStringExtra("chatId")
+        val receiverName = intent.getStringExtra("receiverName")
+        val receiverUid = intent.getStringExtra("receiverUid")
 
-        val profileRepo = ProfileRepo()
-        val profilesViewModel =
-            ViewModelProvider(
-                this,
-                ProfilesViewModelFactory(
-                    profileRepo
-                )
-            )[ProfilesViewModel::class.java]
-        val manager = LinearLayoutManager(this)
-        binding.messagesRecyclerView.layoutManager = manager
-        binding.messagesRecyclerView.adapter = adapter
-        profilesViewModel.profiles.observe(this) {
-            adapter.setProfiles(it)
-        }
-        profilesViewModel.getProfiles()
+        adapter.setReceiverInfo(receiverName, receiverUid)
 
-        /*val messageRepo = MessageRepo("3d0452179cd0c3cdb4814b9c96b6b9a459c655df557a38d34bf98988688c050a")
+        val messageRepo = MessageRepo(chatId!!)
         val messageViewModel =
             ViewModelProvider(
                 this,
@@ -82,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 binding.messageBox.setText("")
             }
-        }*/
+        }
         binding.logoutButton.setOnClickListener {
             logout()
         }
