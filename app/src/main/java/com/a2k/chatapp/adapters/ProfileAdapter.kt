@@ -13,6 +13,7 @@ import com.a2k.chatapp.screens.ChatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<ProfileViewHolder>() {
 
@@ -43,11 +44,11 @@ class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<Profil
                 i.putExtra("receiverProfile", profile)
                 v.context.startActivity(i)
             }
+            Glide.with(context)
+                .load(Firebase.storage.reference.child("user_profiles").child(profile.uid))
+                .error(R.drawable.ic_launcher_foreground)
+                .into(holder.binding.profileAvatar)
         }
-        Glide.with(context)
-            .load(profile.photoUrl)
-            .error(R.drawable.ic_launcher_foreground)
-            .into(holder.binding.profileAvatar)
 
     }
 

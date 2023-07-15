@@ -68,7 +68,6 @@ class SignupScreen : AppCompatActivity() {
                                 Profile(
                                     name = name,
                                     email = email,
-                                    photoUrl = null,
                                     uid = user?.uid
                                 ),
                                 user!!.uid

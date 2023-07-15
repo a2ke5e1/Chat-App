@@ -47,28 +47,28 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/profile_avatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="8dp"
+                android:background="?attr/colorTertiaryContainer"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/label_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="8dp"
-                android:id="@+id/profile_avatar" android:background="?attr/colorTertiaryContainer"
-                android:scaleType="fitCenter"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-                android:layout_height="100dp" />
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/upload_btn"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_marginTop="8dp"
-                app:icon="@drawable/round_upload_24"
-                android:id="@+id/upload_btn"
                 android:text="@string/upload"
+                app:icon="@drawable/round_upload_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profile_avatar" />
-
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -88,7 +88,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/submit_btn"
                 android:layout_width="wrap_content"
@@ -98,7 +97,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/name_container" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
