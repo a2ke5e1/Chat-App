@@ -27,12 +27,13 @@
             android:padding="8dp">
 
             <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profileAvatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/ic_launcher_background"
+                android:background="?attr/colorTertiaryContainer"
+                android:scaleType="fitCenter"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
-                app:srcCompat="@drawable/ic_launcher_foreground"
-                />
+                app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <TextView
                 android:id="@+id/profile_name"

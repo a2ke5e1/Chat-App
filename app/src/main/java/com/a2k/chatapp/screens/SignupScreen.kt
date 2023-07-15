@@ -37,8 +37,8 @@ class SignupScreen : AppCompatActivity() {
         }
 
         binding.submitBtn.setOnClickListener {
-            val name: String = binding.nameField.text.toString()
-            val email: String = binding.emailField.text.toString()
+            val name: String = binding.nameField.text.toString().trim()
+            val email: String = binding.emailField.text.toString().trim()
             val password: String = binding.passwordField.text.toString()
             val confirmPassword: String = binding.confirmPasswordField.text.toString()
 

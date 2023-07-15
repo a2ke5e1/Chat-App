@@ -38,8 +38,8 @@ class SigninScreen : AppCompatActivity() {
 
 
         binding.submitBtn.setOnClickListener {
-            val email: String = binding.emailField.text.toString()
-            val password: String = binding.passwordField.text.toString()
+            val email: String = binding.emailField.text.toString().trim()
+            val password: String = binding.passwordField.text.toString().trim()
 
             binding.emailContainer.error = emailValidator(email)
             binding.passwordContainer.error = passwordValidator(password)
