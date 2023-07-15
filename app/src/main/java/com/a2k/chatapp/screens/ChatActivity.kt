@@ -37,6 +37,7 @@ class ChatActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupUI(this, window,binding.appBarLayout, false)
         setSupportActionBar(binding.toolbar)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
 
 
         val chatId = intent.getStringExtra("chatId")
