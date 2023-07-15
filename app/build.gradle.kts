@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.a2k.chatapp"
-        minSdk = 29
+        minSdk = 30
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
