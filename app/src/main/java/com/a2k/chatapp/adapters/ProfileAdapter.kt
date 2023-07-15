@@ -11,6 +11,7 @@ import com.a2k.chatapp.generateChatId
 import com.a2k.chatapp.models.Profile
 import com.a2k.chatapp.screens.ChatActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -46,7 +47,8 @@ class ProfileAdapter(private val context: Context) : RecyclerView.Adapter<Profil
             }
             Glide.with(context)
                 .load(Firebase.storage.reference.child("user_profiles").child(profile.uid))
-                .error(R.drawable.ic_launcher_foreground)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.binding.profileAvatar)
         }
 

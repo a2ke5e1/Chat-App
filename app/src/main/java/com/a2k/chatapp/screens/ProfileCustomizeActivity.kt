@@ -19,6 +19,7 @@ import com.a2k.chatapp.repository.ProfileRepo
 import com.a2k.chatapp.setupUI
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -104,6 +105,7 @@ class ProfileCustomizeActivity : AppCompatActivity() {
         binding.nameField.setText(name)
         Glide.with(this)
             .load(userProfileRef)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.ic_launcher_foreground)
             .into(binding.profileAvatar)
 
