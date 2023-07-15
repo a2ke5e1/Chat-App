@@ -35,8 +35,7 @@ class ChatActivity : AppCompatActivity() {
         auth = Firebase.auth
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupUI(this, window,binding.appBarLayout)
-        WindowCompat.setDecorFitsSystemWindows(window, true)
+        setupUI(this, window,binding.appBarLayout, false)
         setSupportActionBar(binding.toolbar)
 
 
