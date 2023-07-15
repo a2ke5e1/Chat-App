@@ -26,4 +26,5 @@
     <string name="message">Message</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="my_profile">My Profile</string>
 </resources>

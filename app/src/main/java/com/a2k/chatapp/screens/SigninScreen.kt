@@ -24,7 +24,7 @@ class SigninScreen : AppCompatActivity() {
         auth = Firebase.auth
         binding = ActivitySigninScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupUI(this, window, binding.toolbar)
+        setupUI(this, window, binding.appBarLayout)
 
 
 

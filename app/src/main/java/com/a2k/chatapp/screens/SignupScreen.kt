@@ -4,12 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
+import android.view.MenuItem
 import android.widget.Toast
 import com.a2k.chatapp.R
 import com.a2k.chatapp.databinding.ActivitySignupScreenBinding
 import com.a2k.chatapp.models.Profile
 import com.a2k.chatapp.repository.ProfileRepo
-import com.a2k.chatapp.setupUIWithNavigationListener
+import com.a2k.chatapp.setupUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
@@ -27,9 +28,8 @@ class SignupScreen : AppCompatActivity() {
         auth = Firebase.auth
         binding = ActivitySignupScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupUIWithNavigationListener(this, window, binding.toolbar) {
-            finish()
-        }
+        setupUI(this, window,binding.appBarLayout)
+        setSupportActionBar(binding.toolbar)
 
         binding.alreadyRegisterBtn.setOnClickListener {
             // Goes back to sign in screen
@@ -149,6 +149,18 @@ class SignupScreen : AppCompatActivity() {
             return getString(R.string.password_does_not_match)
         }
         return null
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 

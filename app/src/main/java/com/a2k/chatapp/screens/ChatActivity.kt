@@ -16,7 +16,7 @@ import com.a2k.chatapp.databinding.ActivityChatBinding
 import com.a2k.chatapp.models.Message
 import com.a2k.chatapp.models.Profile
 import com.a2k.chatapp.repository.MessageRepo
-import com.a2k.chatapp.setupUIWithNavigationListener
+import com.a2k.chatapp.setupUI
 import com.a2k.chatapp.viewmodel.MessageViewModel
 import com.a2k.chatapp.viewmodel.MessageViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
@@ -35,9 +35,7 @@ class ChatActivity : AppCompatActivity() {
         auth = Firebase.auth
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupUIWithNavigationListener(this, window, binding.toolbar) {
-            finish()
-        }
+        setupUI(this, window,binding.appBarLayout)
         WindowCompat.setDecorFitsSystemWindows(window, true)
         setSupportActionBar(binding.toolbar)
 
@@ -120,11 +118,18 @@ class ChatActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
             R.id.logout -> {
                 logout()
                 true
             }
-
+            R.id.edit_profile -> {
+                startActivity(Intent(this, ProfileCustomizeActivity::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -148,5 +153,6 @@ class ChatActivity : AppCompatActivity() {
         startActivity(Intent(this, SigninScreen::class.java))
         finish();
     }
+
 
 }

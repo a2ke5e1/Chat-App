@@ -31,7 +31,7 @@ class HomeActivity : AppCompatActivity() {
         auth = Firebase.auth
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupUI(this, window, binding.toolbar)
+        setupUI(this, window, binding.appBarLayout)
         setSupportActionBar(binding.toolbar)
 
 
@@ -70,6 +70,10 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
+            R.id.edit_profile -> {
+                startActivity(Intent(this, ProfileCustomizeActivity::class.java))
+                true
+            }
             R.id.logout -> {
                 logout()
                 true
