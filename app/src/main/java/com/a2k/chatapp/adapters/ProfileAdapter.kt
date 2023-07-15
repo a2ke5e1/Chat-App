@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.a2k.chatapp.databinding.ProfileViewBinding
 import com.a2k.chatapp.generateChatId
 import com.a2k.chatapp.models.Profile
-import com.a2k.chatapp.screens.MainActivity
+import com.a2k.chatapp.screens.ChatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -35,7 +35,7 @@ class ProfileAdapter : RecyclerView.Adapter<ProfileViewHolder>() {
         if (uid != null && profile.uid != null) {
             val chatId = generateChatId(uid, profile.uid)
             holder.binding.profileCard.setOnClickListener { v ->
-                val i = Intent(v.context, MainActivity::class.java)
+                val i = Intent(v.context, ChatActivity::class.java)
                 i.putExtra("chatId", chatId)
                 i.putExtra("receiverProfile", profile)
                 v.context.startActivity(i)

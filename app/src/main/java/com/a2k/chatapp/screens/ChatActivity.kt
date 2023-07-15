@@ -6,35 +6,26 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.a2k.chatapp.R
 import com.a2k.chatapp.adapters.MessageAdapter
-import com.a2k.chatapp.adapters.ProfileAdapter
-import com.a2k.chatapp.databinding.ActivityMainBinding
+import com.a2k.chatapp.databinding.ActivityChatBinding
 import com.a2k.chatapp.models.Message
 import com.a2k.chatapp.models.Profile
 import com.a2k.chatapp.repository.MessageRepo
-import com.a2k.chatapp.repository.ProfileRepo
 import com.a2k.chatapp.setupUIWithNavigationListener
 import com.a2k.chatapp.viewmodel.MessageViewModel
 import com.a2k.chatapp.viewmodel.MessageViewModelFactory
-import com.a2k.chatapp.viewmodel.ProfilesViewModel
-import com.a2k.chatapp.viewmodel.ProfilesViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class MainActivity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityChatBinding
     private lateinit var auth: FirebaseAuth
     var editingMode = false
     var editingMessageId: String? = null
@@ -42,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupUIWithNavigationListener(this, window, binding.toolbar) {
             finish()

@@ -20,10 +20,10 @@
             android:name=".screens.SigninScreen"
             android:exported="false" />
         <activity
-            android:name=".screens.MainActivity"
+            android:name=".screens.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".screens.ProfileActivity"
+            android:name=".screens.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

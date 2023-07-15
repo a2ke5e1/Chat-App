@@ -76,7 +76,7 @@ class SignupScreen : AppCompatActivity() {
 
                             if (user != null) {
                                 Toast.makeText(baseContext, user?.uid, Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this, ProfileActivity::class.java))
+                                startActivity(Intent(this, HomeActivity::class.java))
                                 finish()
                             }
 

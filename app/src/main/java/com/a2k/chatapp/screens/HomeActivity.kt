@@ -10,32 +10,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.a2k.chatapp.R
-import com.a2k.chatapp.adapters.MessageAdapter
 import com.a2k.chatapp.adapters.ProfileAdapter
-import com.a2k.chatapp.databinding.ActivityMainBinding
-import com.a2k.chatapp.databinding.ActivityProfileBinding
-import com.a2k.chatapp.models.Message
-import com.a2k.chatapp.repository.MessageRepo
+import com.a2k.chatapp.databinding.ActivityHomeBinding
 import com.a2k.chatapp.repository.ProfileRepo
 import com.a2k.chatapp.setupUI
-import com.a2k.chatapp.viewmodel.MessageViewModel
-import com.a2k.chatapp.viewmodel.MessageViewModelFactory
 import com.a2k.chatapp.viewmodel.ProfilesViewModel
 import com.a2k.chatapp.viewmodel.ProfilesViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class ProfileActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityProfileBinding
+    private lateinit var binding: ActivityHomeBinding
     private lateinit var auth: FirebaseAuth
     val adapter = ProfileAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        binding = ActivityProfileBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupUI(this, window, binding.toolbar)
         setSupportActionBar(binding.toolbar)
